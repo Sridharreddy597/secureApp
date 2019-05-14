@@ -12,26 +12,23 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.example.secureApp"})
+@ComponentScan(basePackages = { "com.example.secureApp" })
 public class webMvcConfig implements WebMvcConfigurer {
 
 	@Bean
 	public ViewResolver internalResourceViewResolver() {
-	    InternalResourceViewResolver bean = new InternalResourceViewResolver();
-	    bean.setViewClass(JstlView.class);
-	    bean.setPrefix("/WEB-INF/view/");
-	    bean.setSuffix(".jsp");
-	    return bean;
+		InternalResourceViewResolver bean = new InternalResourceViewResolver();
+		bean.setViewClass(JstlView.class);
+		bean.setPrefix("/WEB-INF/view/");
+		bean.setSuffix(".jsp");
+		return bean;
 	}
-	
-	 @Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        registry
-	            .addResourceHandler("swagger-ui.html")
-	            .addResourceLocations("classpath:/META-INF/resources/");
-	        registry.addResourceHandler("/webjars/**")
-	        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-	
-	    }
-	
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+	}
+
 }

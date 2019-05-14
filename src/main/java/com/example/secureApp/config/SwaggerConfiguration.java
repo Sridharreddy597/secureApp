@@ -15,11 +15,8 @@ public class SwaggerConfiguration {
 		 * .select().apis(RequestHandlerSelectors.basePackage("com.example.secureApp")).
 		 * paths(PathSelectors.any()) .build().enableUrlTemplating(false);
 		 */
-		
-		 return new Docket(DocumentationType.SWAGGER_2)  
-		          .select()                                  
-		          .apis(RequestHandlerSelectors.any())              
-		          .paths(PathSelectors.any())                          
-		          .build(); 
+
+		return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
+				.paths(PathSelectors.any()).build();
 	}
 }

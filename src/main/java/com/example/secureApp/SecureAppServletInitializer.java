@@ -20,7 +20,8 @@ public class SecureAppServletInitializer extends AbstractAnnotationConfigDispatc
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
 		// TODO Auto-generated method stub
-		return new Class[] { SecureAppServletInitializer.class, LoggerAspect.class, SecurityConfig.class, PersistenceConfig.class };
+		return new Class[] { SecureAppServletInitializer.class, LoggerAspect.class, SecurityConfig.class,
+				PersistenceConfig.class };
 	}
 
 	@Override

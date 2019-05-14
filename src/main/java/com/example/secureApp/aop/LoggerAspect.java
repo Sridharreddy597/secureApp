@@ -17,14 +17,16 @@ public class LoggerAspect {
 
 	@Around("com.example.secureApp.aop.CommonJointPointConfig.logTimeForService()") // point-cut expression
 	public void around(ProceedingJoinPoint joinPoint) throws Throwable {
-		//Advice
-		long startTime=System.currentTimeMillis();
+		// Advice
+		long startTime = System.currentTimeMillis();
 
-		logger.info("execution start time for : "+joinPoint.getSignature().getName()+" is "+ System.currentTimeMillis());
+		logger.info("execution start time for : " + joinPoint.getSignature().getName() + " is "
+				+ System.currentTimeMillis());
 		joinPoint.proceed();
-		logger.info("execution end time for : "+joinPoint.getSignature().getName()+" is "+ System.currentTimeMillis());
-		long timeTaken=System.currentTimeMillis()-startTime;
-		logger.info("Time taken by "+joinPoint+" is(ms) : "+ timeTaken);
-		
+		logger.info(
+				"execution end time for : " + joinPoint.getSignature().getName() + " is " + System.currentTimeMillis());
+		long timeTaken = System.currentTimeMillis() - startTime;
+		logger.info("Time taken by " + joinPoint + " is(ms) : " + timeTaken);
+
 	}
 }

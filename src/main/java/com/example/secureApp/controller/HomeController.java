@@ -15,7 +15,7 @@ import com.example.secureApp.model.Employee.gender;
 @RestController
 class HomeController {
 
-	@RequestMapping(method = RequestMethod.GET, value = {"/employees","/"})
+	@RequestMapping(method = RequestMethod.GET, value = { "/employees", "/" })
 	public ResponseEntity<List<Employee>> getHomeUrl() {
 		List<Employee> employees = new ArrayList<Employee>();
 		for (int i = 0; i < 10; i++)

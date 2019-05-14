@@ -18,28 +18,26 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource(value="classpath:application.properties")
-@ComponentScan({
-    "com.example.secureApp"
-})
+@PropertySource(value = "classpath:application.properties")
+@ComponentScan({ "com.example.secureApp" })
 @EnableJpaRepositories(basePackages = "com.example.secureApp")
 public class PersistenceConfig {
-	
+
 	@Autowired
 	private Environment env;
-	
+
 	@Bean
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-		
+
 		LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
 		emf.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 		emf.setDataSource(getDatasource());
 		emf.setPackagesToScan("com.example.secureApp");
 		emf.setJpaProperties(jpaProperties());
-		
+
 		return emf;
 	}
-	
+
 	@Bean
 	public DriverManagerDataSource getDatasource() {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
@@ -47,24 +45,24 @@ public class PersistenceConfig {
 		ds.setUrl(env.getProperty("db.url"));
 		ds.setUsername(env.getProperty("db.user"));
 		ds.setPassword(env.getProperty("db.password"));
-		
+
 		return ds;
 	}
-	
+
 	@Bean
 	public PlatformTransactionManager txnMgr(EntityManagerFactory emf) {
 		return new JpaTransactionManager(emf);
 	}
-	
+
 	private Properties jpaProperties() {
-		
+
 		Properties properties = new Properties();
 		properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 		properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl"));
 		properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show.sql"));
 		properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format.sql"));
 		return properties;
-		
+
 	}
 
 }
