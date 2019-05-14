@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Properties>
+		<Property name="baseDir">/logs/secureApp/</Property>
+	</Properties>
+	<Appenders>
+		# Console appender
+		<Console name="stdout" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern=" %d{yyyy-MM-dd HH:mm:ss} %p %m%n" />
+		</Console>
+
+		# File appender
+		<File name="fout" fileName="${baseDir}/secure-app.log"
+			immediateFlush="false" append="false">
+			# Pattern of log message for file appender
+
+			<PatternLayout
+				pattern="%d{yyyy-MM-dd HH:mm:ss} %p %m%n" />
+		</File>
+
+		# Rolling appender
+		<RollingFile name="roll-by-size"
+			fileName="${baseDir}/roll-by-size/secure-app.log"
+			filePattern="${baseDir}/roll-by-size/secure-app.%i.log.gz"
+			ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern> %d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="5 KB" />
+			</Policies>
+		</RollingFile>
+		<RollingFile name="roll-by-time"
+			fileName="${baseDir}/roll-by-time/secure-app.log"
+			filePattern="${baseDir}/roll-by-time/secure-app.%d{MM-dd-yyyy-HH-mm}.log.gz"
+			ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern> %d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+			</PatternLayout>
+			<TimeBasedTriggeringPolicy />
+		</RollingFile>
+
+		<RollingFile name="roll-by-time-and-size"
+			fileName="${baseDir}/roll-by-time-and-size/secure-app.log"
+			filePattern="${baseDir}/roll-by-time/secure-app.%d{MM-dd-yyyy-HH-mm}.i.log.gz"
+			ignoreExceptions="false">
+			<PatternLayout>
+				<Pattern> %d{yyyy-MM-dd HH:mm:ss} %p %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="5 KB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<!-- <DefaultRolloverStrategy> <Delete baseDir="${baseDir}" maxDepth="2"> 
+				<IfFileName glob="${baseDir}/roll-by-time-and-size/secure-app.*.log.gz" /> 
+				</Delete> </DefaultRolloverStrategy> -->
+		</RollingFile>
+	</Appenders>
+
+	<Loggers>
+		#Override log level for specified package
+		<Logger name="com.example.secureApp" level="TRACE" />
+		<Logger name="com.example.secureApp" level="TRACE">
+			<AppenderRef ref="roll-by-size" />
+			<AppenderRef ref="roll-by-time" />
+			<AppenderRef ref="roll-by-time-and-size" />
+		</Logger>
+		<AsyncRoot level="INFO">
+			<AppenderRef ref="stdout" />
+			<AppenderRef ref="fout" />
+		</AsyncRoot>
+
+
+	</Loggers>
+
+</Configuration>
