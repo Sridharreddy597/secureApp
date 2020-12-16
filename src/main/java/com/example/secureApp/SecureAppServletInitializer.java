@@ -23,6 +23,7 @@ public class SecureAppServletInitializer extends AbstractAnnotationConfigDispatc
 		return new Class[] { SecureAppServletInitializer.class, LoggerAspect.class, SecurityConfig.class,
 				PersistenceConfig.class };
 	}
+	//test jenkins
 
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
